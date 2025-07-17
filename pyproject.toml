@@ -17,7 +17,7 @@ maintainers = [
 ]
 description = "Extended OKS on top of xtcocotools"
 readme = "README.md"
-license-files = ["LICENSE"]
+license = {text = "GPLv3"}
 classifiers = [
   "Development Status :: 4 - Beta",
   "Programming Language :: Python"

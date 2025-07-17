@@ -122,4 +122,5 @@ setup(
     include_package_data=True,
     author="Miroslav Purkrabek",
     author_email="mira.purkrabek@gmail.com",
+    options={'bdist_wheel': {'universal': True}},
 )
