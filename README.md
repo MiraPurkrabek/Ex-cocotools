@@ -1,9 +1,30 @@
-# Extended-OKS COCO Evaluation API
+<!-- omit in toc -->
+</h1><div id="toc">
+  <ul align="center" style="list-style: none; padding: 0; margin: 0;">
+    <summary>
+      <h1 style="margin-bottom: 0.0em;">
+        Extended-OKS COCO Evaluation API
+      </h1>
+    </summary>
+  </ul>
+</div>
+</h1><div id="toc">
+</div>
+
 
 This repository extends the standard COCO person keypoint evaluation by implementing the Extended-OKS (Ex-OKS) metric introduced in the [ProbPose paper](https://mirapurkrabek.github.io/ProbPose/). Built on top of the original [xtcocotools](https://github.com/jin-s13/xtcocoapi/) and the official [COCO API](https://github.com/cocodataset/cocoapi), Ex-OKS remains fully backward-compatible with the standard OKS. It adds support for:
 
 - Out-of-image keypoints (points annotated outside the image boundary or activation window) to asses model's robustness
 - Per-visibility-level mAP breakdowns to pinpoint which keypoints cause errors
+
+<!-- omit in toc -->
+## Table of Contents
+
+- [Extended-OKS vs. OKS](#extended-oks-vs-oks)
+- [Visibility Levels](#visibility-levels)
+- [Usage / Demo](#usage--demo)
+- [Installation](#installation)
+- [Acknowledgements and Citation](#acknowledgements-and-citation)
 
 ## Extended-OKS vs. OKS
 
@@ -22,6 +43,7 @@ This repository extends the standard COCO person keypoint evaluation by implemen
 | Primary use-case| Benchmark evaluation: Localize all points inside the image | Real-world applications: First predict if the point is "there" and if yes, localize it |
 
 
+<!-- omit in toc -->
 ### Detailed Explanation
 
 Formally, Ex-OKS has the same form as OKS -- euclidean distance scaled by image scale and per-keypoint sigma.
@@ -85,12 +107,14 @@ For more details, see [COCO Demo](demos/demo_coco.py) or [CropCOCO Demo](demos/d
 
 ## Installation
 
+<!-- omit in toc -->
 ### From PyPI
 
 ```bash
 pip install ExCocotools
 ```
 
+<!-- omit in toc -->
 ### From Source
 
 ```bash
