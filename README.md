@@ -47,6 +47,20 @@ d_i = \begin{cases}
 
 In summary, Ex-OKS *extends* OKS to situation when ground-truth or prediction are outside of the activation window. For more details, read the full explanation in the [ProbPose paper](https://mirapurkrabek.github.io/ProbPose/static/pdfs/ProbPose.pdf).
 
+## Visibility Levels
+
+Apart from Ex-OKS, this library also shows mAP for different visibility levels.
+Best demonstrated in [CropCOCO Demo](demos/demo_cropcoco.py), rows with specific visibility show performance for such keypoints.
+
+<p align="center">
+    <img src="assets/visibility_levels.png" width="500" alt="mAP for different visibility levels">
+</p>
+
+The output above shows that for
+- occluded keypoints (v=1), the mAP is 38.9
+- for visible keypoints (v=2), the mAP is 79.1
+- and for out-of-image keypoints (v=3), the mAP is 31.7
+
 ## Usage / Demo
 
 ```python
