@@ -1,11 +1,11 @@
 # Extended-OKS COCO Evaluation API
 
-This repository extends the standard COCO person keypoint evaluation by implementing the Extended-OKS (Ex-OKS) metric introduced in the ProbPose paper. Built on top of the original [xtcocotools](https://github.com/jin-s13/xtcocoapi/) and the official [COCO API](https://github.com/cocodataset/cocoapi), Ex-OKS remains fully backward-compatible with the standard OKS. It adds support for:
+This repository extends the standard COCO person keypoint evaluation by implementing the Extended-OKS (Ex-OKS) metric introduced in the [ProbPose paper](https://mirapurkrabek.github.io/ProbPose/). Built on top of the original [xtcocotools](https://github.com/jin-s13/xtcocoapi/) and the official [COCO API](https://github.com/cocodataset/cocoapi), Ex-OKS remains fully backward-compatible with the standard OKS. It adds support for:
 
 - Out-of-image keypoints (points annotated outside the image boundary or activation window) to asses model's robustness
 - Per-visibility-level mAP breakdowns to pinpoint which keypoints cause errors
 
-### Extended-OKS vs. OKS
+## Extended-OKS vs. OKS
 
 - **OKS (Object Keypoint Similarity)** measures similarity between predicted and ground-truth keypoints within the image.
 - **Ex-OKS (Extended OKS)** extends OKS by:
@@ -13,9 +13,39 @@ This repository extends the standard COCO person keypoint evaluation by implemen
   - Penalizing out-of-image predictions when the groud-truth is in-image
   - The same as OKS when both ground-truth and prediction are in-image
 
-## Detailed Explanation
 
-**TODO** -- *Add mathematical definitions, design decisions, and API details here.*
+|Aspect|**OKS**|**Ex-OKS**|
+|:---:|:---:|:---:|
+|What it measures   | Alignment of predictions vs. ground-truth using a Gaussian fall-off based on object scale | Same alignment AND corectness of "in-view" vs. "out-of-view" classification |
+| Presence handling | Only evaluates localization for keypoints inside the image | Localization for keypoints inside the image and classification for out-of-view keypoints |
+| False-positive penalty| None | Penalizes in-image prediction when a keypoint is out-of-view |
+| Primary use-case| Benchmark evaluation: Localize all points inside the image | Real-world applications: First predict if the point is "there" and if yes, localize it |
+
+
+### Detailed Explanation
+
+Formally, Ex-OKS has the same form as OKS -- euclidean distance scaled by image scale and per-keypoint sigma.
+
+```math
+    \text{Ex-OKS} = \exp{(\frac{-d_{i}^2}{2k^2\sigma^2})}
+```
+
+However, for Ex-OKS, the distance $d_i$ depends on the situation (ground-truth in/out; precition in/out). Below, you can see formal defintion along with illustrative scheme. 
+
+```math
+d_i = \begin{cases}
+        d_e(x^{*}_i, x'_i) & \text{if } p^{*}_p = 1 \text{ and } p'_p = 1 \\
+        d_e(\text{AW}, x'_i) & \text{if } p^{*}_p = 0 \text{ and } p'_p = 1 \\
+        d_e(x^{*}_i, \text{AW}) & \text{if } p^{*}_p = 1 \text{ and } p'_p = 0 \\
+        0                               & \text{else} 
+    \end{cases} \\
+```
+
+<p align="center">
+    <img src="assets/exoks_scheme.png" width="500" alt="Extended-OKS Scheme">
+</p>
+
+In summary, Ex-OKS *extends* OKS to situation when ground-truth or prediction are outside of the activation window. For more details, read the full explanation in the [ProbPose paper](https://mirapurkrabek.github.io/ProbPose/static/pdfs/ProbPose.pdf).
 
 ## Usage / Demo
 
