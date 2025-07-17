@@ -1,7 +1,7 @@
 from setuptools import setup, Extension
 import numpy as np
 
-version_file = 'ExCocotools/version.py'
+version_file = 'exococotools/version.py'
 
 def get_version():
     with open(version_file, 'r') as f:
@@ -96,21 +96,21 @@ def parse_requirements(fname='requirements.txt', with_version=True):
 # They can safely be removed.
 ext_modules = [
     Extension(
-        'ExCocotools._mask',
-        sources=['./common/maskApi.c', 'ExCocotools/_mask.pyx'],
+        'exococotools._mask',
+        sources=['./common/maskApi.c', 'exococotools/_mask.pyx'],
         include_dirs = [np.get_include(), './common'],
         extra_compile_args=[] # originally was ['-Wno-cpp', '-Wno-unused-function', '-std=c99'],
     )
 ]
 
 setup(
-    name='ExCocotools',
-    packages=['ExCocotools'],
-    package_dir = {'ExCocotools': 'ExCocotools'},
+    name='exococotools',
+    packages=['exococotools'],
+    package_dir = {'exococotools': 'exococotools'},
     install_requires=parse_requirements('requirements.txt'),
     setup_requires=parse_requirements('requirements.txt'),
     version=get_version(),
     description="Extended-OKS COCO API",
-    url="https://github.com/MiraPurkrabek/ExCocotools",
+    url="https://github.com/MiraPurkrabek/exococotools",
     ext_modules= ext_modules
 )

@@ -1,5 +1,5 @@
-from ExCocotools.coco import COCO
-from ExCocotools.cocoeval import COCOeval
+from exococotools.coco import COCO
+from exococotools.cocoeval import COCOeval
 import numpy as np
 
 gt_file = '../annotations/example_cropcoco_val.json'

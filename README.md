@@ -3,7 +3,7 @@
   <ul align="center" style="list-style: none; padding: 0; margin: 0;">
     <summary>
       <h1 style="margin-bottom: 0.0em;">
-        Extended-OKS COCO Evaluation API
+        ExOCocoTools - Extended-OKS for COCO Evaluation API
       </h1>
     </summary>
   </ul>
@@ -16,6 +16,8 @@ This repository extends the standard COCO person keypoint evaluation by implemen
 
 - Out-of-image keypoints (points annotated outside the image boundary or activation window) to asses model's robustness
 - Per-visibility-level mAP breakdowns to pinpoint which keypoints cause errors
+
+Why ExOCocoTools? ExO stands both for Ex-OKS and for greek "exo", meaning "outside". This evaluation protocol is the first to evaluate on keypoints outside of the image.
 
 <!-- omit in toc -->
 ## Table of Contents
@@ -86,8 +88,8 @@ The output above shows that for
 ## Usage / Demo
 
 ```python
-from ExCocotools.coco import COCO
-from ExCocotools.cocoeval import COCOeval
+from exococotools.coco import COCO
+from exococotools.cocoeval import COCOeval
 
 # Standard OKS evaluation (backward-compatible)
 cocoEval = COCOeval(cocoGt_json, cocoDt_json, iouType='keypoints', extended_oks=False)
@@ -111,7 +113,7 @@ For more details, see [COCO Demo](demos/demo_coco.py) or [CropCOCO Demo](demos/d
 ### From PyPI
 
 ```bash
-pip install ExCocotools
+pip install exococotools
 ```
 
 <!-- omit in toc -->
