@@ -1,7 +1,13 @@
 from setuptools import setup, Extension
+import pathlib
 import numpy as np
 
 version_file = 'exococotools/version.py'
+
+here = pathlib.Path(__file__).parent.resolve()
+
+# Get the long description from the README file
+long_description = (here / "README.md").read_text(encoding="utf-8")
 
 def get_version():
     with open(version_file, 'r') as f:
@@ -112,5 +118,8 @@ setup(
     version=get_version(),
     description="Extended-OKS COCO API",
     url="https://github.com/MiraPurkrabek/exococotools",
-    ext_modules= ext_modules
+    ext_modules= ext_modules,
+    include_package_data=True,
+    author="Miroslav Purkrabek",
+    author_email="mira.purkrabek@gmail.com",
 )

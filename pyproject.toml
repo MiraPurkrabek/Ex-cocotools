@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools >= 18.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.bdist_wheel]
+universal = true
+
+[project]
+name = "exococotools"
+version = "1.0.0"
+requires-python = ">=3.7"
+authors = [
+  {name = "Miroslav Purkrabek", email = "mira.purkrabek@gmail.com"},
+]
+maintainers = [
+  {name = "Miroslav Purkrabek", email = "mira.purkrabek@gmail.com"},
+]
+description = "Extended OKS on top of xtcocotools"
+readme = "README.md"
+license-files = ["LICENSE"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python"
+]
