@@ -1,5 +1,5 @@
-from xtcocotools.coco import COCO
-from xtcocotools.cocoeval import COCOeval
+from ExCocotools.coco import COCO
+from ExCocotools.cocoeval import COCOeval
 import numpy as np
 
 gt_file = '../annotations/example_crowdpose_val.json'
