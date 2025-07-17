@@ -3,7 +3,7 @@
   <ul align="center" style="list-style: none; padding: 0; margin: 0;">
     <summary>
       <h1 style="margin-bottom: 0.0em;">
-        ExOCocoTools - Extended-OKS for COCO Evaluation API
+        ExOCocoTools - Extended-OKS for COCO API
       </h1>
     </summary>
   </ul>
