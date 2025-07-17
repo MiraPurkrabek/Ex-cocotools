@@ -1,57 +1,72 @@
-# Extended COCO API (xtcocotools)
+# Extended-OKS COCO Evaluation API
 
-## News
+This repository extends the standard COCO person keypoint evaluation by implementing the Extended-OKS (Ex-OKS) metric introduced in the ProbPose paper. Built on top of the original [xtcocotools](https://github.com/jin-s13/xtcocoapi/) and the official [COCO API](https://github.com/cocodataset/cocoapi), Ex-OKS remains fully backward-compatible with the standard OKS. It adds support for:
 
-[2023.10.19] Release xtcocotools v1.14.3. Support python3.7~3.11 on Linux, mac and windows systems.
+- Out-of-image keypoints (points annotated outside the image boundary or activation window) to asses model's robustness
+- Per-visibility-level mAP breakdowns to pinpoint which keypoints cause errors
 
-[2023.09.01] Release xtcocotools v1.14. Solve Cython3.x compatability.
+### Extended-OKS vs. OKS
 
-[2022.12.27] Release xtcocotools v1.13. Fix int overflow & solve deprecation in numpy (replace np.float with np.float64).
+- **OKS (Object Keypoint Similarity)** measures similarity between predicted and ground-truth keypoints within the image.
+- **Ex-OKS (Extended OKS)** extends OKS by:
+  - Penalizing in-image predictions when the ground-truth is out-of-image
+  - Penalizing out-of-image predictions when the groud-truth is in-image
+  - The same as OKS when both ground-truth and prediction are in-image
 
-[2022.04.10] Release xtcocotools v1.12. Fix bugs in APm and APl calculation.
+## Detailed Explanation
 
-[2022.02.23] Release xtcocotools v1.11. Add Windows/Mac support.
+**TODO** -- *Add mathematical definitions, design decisions, and API details here.*
 
-[2021.08.04] Release xtcocotools v1.10. Update installation dependencies.
+## Usage / Demo
 
-[2021.07.22] Release xtcocotools v1.9. Merge some useful PRs from cocoapi.
+```python
+from ExCocotools.coco import COCO
+from ExCocotools.cocoeval import COCOeval
 
-[2021.05.19] Release xtcocotools v1.8. Fix CrowdPose evaluation.
+# Standard OKS evaluation (backward-compatible)
+cocoEval = COCOeval(cocoGt_json, cocoDt_json, iouType='keypoints', extended_oks=False)
 
-[2021.03.22] Release xtcocotools v1.7. Support multi-part scores for COCO-WholeBody Dataset.
+# --- OR ---
 
-[2020.10.17] Release xtcocotools v1.6. Fix CrowdPose stats.
+# Extended-OKS evaluation
+cocoEval = COCOeval(cocoGt_json, cocoDt_json, iouType='keypoints', extended_oks=True)
 
-[2020.9.14] Release xtcocotools v1.5. Support COCO-WholeBody Dataset.
+# Evaluate and print results
+cocoEvalExt.evaluate()
+cocoEvalExt.accumulate()
+cocoEvalExt.summarize()
+```
 
-[2020.8.25] Release xtcocotools v1.0. Support COCO, AIChallenger, and CrowdPose Dataset.
-
-## Introduction
-
-COCO has become a standard annotation format for the task of person keypoint detection, and is widely used for multiple datasets.
-Our Extended COCO API is developed based on [@cocodataset/cocoapi](https://github.com/cocodataset/cocoapi). 
-
-We aim to provide a unified evaluation tools to support multiple human pose-related datasets, including [COCO](http://cocodataset.org/), [COCO-WholeBody](https://github.com/jin-s13/COCO-WholeBody), [CrowdPose](https://github.com/Jeff-sjtu/CrowdPose), [AI Challenger](https://github.com/AIChallenger/AI_Challenger_2017) and so on.
-
-xtcocotools has been used in [MMPose](https://github.com/open-mmlab/mmpose) framework.
-
-We provide a simple [demo_crowdpose](demos/demo_crowdpose.py) to evaluate on CrowdPose dataset; 
-[demo_coco](demos/demo_coco.py) to evaluate on COCO dataset;
-and [demo_coco_wholebody](demos/demo_coco_wholebody.py) to evaluate on COCO-WholeBody dataset;
-
-## Requirements
-
-- Python 3.7+ (Lower versions are not fully tested)
+For more details, see [COCO Demo](demos/demo_coco.py) or [CropCOCO Demo](demos/demo_cropcoco.py) files.
 
 ## Installation
 
-To install from pip:
-```shell
-pip install xtcocotools
+### From PyPI
+
+```bash
+pip install ExCocotools
 ```
 
-To install from source:
-```shell
+### From Source
+
+```bash
+git clone https://github.com/MiraPurkrabek/Ex-cocotools
+cd Ex-cocotools
 pip install -r requirements.txt
-python setup.py install
+pip install -e .
+```
+
+## Acknowledgements and Citation
+
+This implementation builds upon the COCO API and xtcocotools projects. The Extended-OKS metric and its evaluation methodology are described in the ProbPose paper:
+
+```bibtex
+@InProceedings{Purkrabek2025CVPR,
+    author    = {Purkrabek, Miroslav and Matas, Jiri},
+    title     = {ProbPose: A Probabilistic Approach to 2D Human Pose Estimation},
+    booktitle = {Proceedings of the Computer Vision and Pattern Recognition Conference (CVPR)},
+    month     = {June},
+    year      = {2025},
+    pages     = {27124-27133}
+}
 ```
